@@ -14,9 +14,9 @@ public class FileReader {
         String email = "";
         int age = 0;
         Long phone = 0L;
-        RandomAccessFile aFile = null;
-        try {
-            aFile = new RandomAccessFile(file.getCanonicalPath(), "r");
+
+        try(RandomAccessFile  aFile = new RandomAccessFile(file.getCanonicalPath(), "r")) {
+
             FileChannel channel = aFile.getChannel();
             long fileSize = channel.size();
             ByteBuffer buffer = ByteBuffer.allocate((int) fileSize);
@@ -56,13 +56,7 @@ public class FileReader {
         catch (IOException e) {
             e.printStackTrace();
         }
-        finally {
-            try {
-                aFile.close();
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
-        }
+
         return null;
     }
 }
