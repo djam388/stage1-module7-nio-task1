@@ -29,8 +29,6 @@ public class FileReader {
             for (int i = 0; i < fileSize; i++) {
                 readContent.append((char) buffer.get());
             }
-            aFile.close();
-
 
             String[] contentLines = readContent.toString().split("\\r?\\n|\\r");
 
