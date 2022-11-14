@@ -14,14 +14,14 @@ public class FileReader {
         String email = "";
         int age = 0;
         Long phone = 0L;
-
+        RandomAccessFile aFile = null;
         try {
-            RandomAccessFile aFile = new RandomAccessFile(file.getCanonicalPath(), "r");
+            aFile = new RandomAccessFile(file.getCanonicalPath(), "r");
             FileChannel channel = aFile.getChannel();
             long fileSize = channel.size();
             ByteBuffer buffer = ByteBuffer.allocate((int) fileSize);
             StringBuilder readContent = new StringBuilder();
-            //(int) aFile.length()
+
 
             channel.read(buffer);
             buffer.flip();
@@ -56,7 +56,13 @@ public class FileReader {
         catch (IOException e) {
             e.printStackTrace();
         }
-
+        finally {
+            try {
+                aFile.close();
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        }
         return null;
     }
 }
